@@ -34,7 +34,7 @@
 
         </div>
         <div id="user-info">
-            <h2 id="user-name">Riska Oktafia</h2>
+            <h2 id="user-name">{{ Auth::guard('mahasiswa')->user()->nama_mhs }}</h2>
             <span id="user-role">Mahasiswa</span>
         </div>
     </div>
