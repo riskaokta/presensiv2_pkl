@@ -121,7 +121,7 @@
                 success: function (respond) {
                     var status = respond.split("|");
                     // console.log(image); //debugging
-                    if (status[0] == "psucces") {
+                    if (status[0] == "succes") {
                         // console.log("Response:", respond); // Debugging respons server
                         Swal.fire({
                             title: 'Berhasil!',

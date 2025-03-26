@@ -28,7 +28,6 @@
 
         </td>
     </tr>
-    //data belum bisa muncul
 
 @endforeach
 
