@@ -7,6 +7,7 @@ use illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Mahasiswa;
+use Carbon\Carbon;
 
 
 class AuthController extends Controller
@@ -18,7 +19,7 @@ class AuthController extends Controller
         // echo password_hash($pass, PASSWORD_BCRYPT);
         // INI ERROR REDIRECT KE DASHBOARD
         // $a = Hash::make($request->password);
-        // echo $a;
+        // echo $jam;
 
         //Validasi input
         $request->validate([

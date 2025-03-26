@@ -33,7 +33,7 @@ class PresensiController extends Controller
                 //video ke7
                 $npm = Auth::guard('mahasiswa')->user()->npm;
                 $tgl_presensi = date("Y-m-d");
-                $jam = date("H:i:s");
+                $jam = carbon::now('Asia/Jakarta')->format('H:i:s');
                 $lokasi = $request->lokasi;
                 $image = $request->image;
                 $folderPath = "public/uploads/presensi";
