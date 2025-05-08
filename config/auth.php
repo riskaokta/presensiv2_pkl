@@ -39,17 +39,18 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-            ''
+        ],
+
+        'mahasiswa' => [
+            'driver' => 'session',
+            'provider' => 'mahasiswas',
+        ],
+
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
     ],
-
-    'guards' => [
-    'mahasiswa' => [
-        'driver' => 'session',
-        'provider' => 'mahasiswa', // Match the provider name
-        ],
-    ],
-
 
     /*
     |--------------------------------------------------------------------------
@@ -74,19 +75,16 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'mahasiswas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Mahasiswa::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
     ],
-    
-    'providers' => [
-    'mahasiswa' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Mahasiswa::class, // Adjust the namespace and model name as needed
-        ],
-    ],
-
 
     /*
     |--------------------------------------------------------------------------

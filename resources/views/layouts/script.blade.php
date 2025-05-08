@@ -45,10 +45,6 @@
                 country: "Izin",
                 litres: 201.1
             },
-            {
-                country: "Terlambat",
-                litres: 165.8
-            },
         ];
 
 
@@ -61,10 +57,9 @@
         series.labels.template.radius = am4core.percent(-40);
         series.labels.template.fill = am4core.color("white");
         series.colors.list = [
-            am4core.color("#1171ba"),
+            am4core.color("#E74C3C"),
             am4core.color("#fca903"),
             am4core.color("#37db63"),
-            am4core.color("#ba113b"),
         ];
     }); // end am4core.ready()
 </script>

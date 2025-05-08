@@ -5,31 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* General Styles */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f4f5f7;
         }
 
         .login-container {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 400px;
-            text-align: center;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h2 {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 30px;
             color: #333;
         }
 
@@ -39,48 +57,51 @@
         }
 
         .form-group {
-            margin-bottom: 15px;
-            text-align: left;
+            margin-bottom: 20px;
         }
 
         label {
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 5px;
+            font-size: 0.95rem;
+            color: #444;
+            margin-bottom: 6px;
             display: block;
         }
 
-        input[type="email"],
+        input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             font-size: 1rem;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-top: 5px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
         }
 
         .password-wrapper {
             position: relative;
         }
 
-        .password-wrapper .show-password {
+        .show-password {
             position: absolute;
-            right: 10px;
             top: 50%;
+            right: 15px;
             transform: translateY(-50%);
-            text-decoration: none;
-            color: #666;
-            font-size: 1rem;
             cursor: pointer;
+            font-size: 1.2rem;
+            color: #888;
         }
 
         .forgot-password {
-            display: block;
-            margin-top: 5px;
-            font-size: 0.8rem;
-            color: #007BFF;
+            font-size: 0.85rem;
+            color: #007bff;
             text-decoration: none;
+            margin-top: 6px;
+            display: inline-block;
         }
 
         .forgot-password:hover {
@@ -90,6 +111,7 @@
         .checkbox-group {
             display: flex;
             align-items: center;
+            margin-bottom: 20px;
             font-size: 0.9rem;
         }
 
@@ -98,12 +120,12 @@
         }
 
         .btn-primary {
-            background-color: #007BFF;
+            background-color: #007bff;
             color: #fff;
             border: none;
-            padding: 10px;
+            padding: 12px;
             font-size: 1rem;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -112,78 +134,53 @@
             background-color: #0056b3;
         }
 
-        .or-divider {
-            margin: 20px 0;
-            font-size: 0.9rem;
-            color: #888;
-            position: relative;
-        }
-
-        .or-divider::before,
-        .or-divider::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background-color: #ccc;
-        }
-
-        .or-divider::before {
-            left: 0;
-        }
-
-        .or-divider::after {
-            right: 0;
-        }
-
-        .social-login {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .btn-secondary {
-            background-color: #f4f5f7;
-            color: #333;
-            border: 1px solid #ccc;
-            padding: 10px;
-            font-size: 0.9rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 48%;
-        }
-
-        .btn-secondary:hover {
-            background-color: #e2e6ea;
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+                border-radius: 12px;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="login-container">
-        <h2>Login to your account</h2>
+        <h2>Login Admin SIPRESENS</h2>
         <form action="/prosesloginadmin" method="POST">
             @csrf
             <div class="form-group">
-                <label class="form-label">Email Address</label>
-                <input type="text" name="email" class="form-control" placeholder="your@email.com" autocomplete="off">
+                <label>Username</label>
+                <input type="text" name="email" placeholder="your@email.com" autocomplete="off">
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label>Password</label>
                 <div class="password-wrapper">
                     <input type="password" id="password" name="password" placeholder="Your password" required>
-                    <a href="#" class="show-password">👁️</a>
+                    <span class="show-password" onclick="togglePassword()">👁️</span>
                 </div>
-                <a href="#" class="forgot-password">I forgot password</a>
+                <!-- <a href="#" class="forgot-password">I forgot password</a> -->
             </div>
-            <div class="form-group checkbox-group">
+            <!-- <div class="form-group checkbox-group">
                 <input type="checkbox" id="remember" name="remember">
                 <label for="remember">Remember me on this device</label>
-            </div>
+            </div> -->
             <button type="submit" class="btn-primary">Sign in</button>
         </form>
     </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("password");
+            const icon = document.querySelector(".show-password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.textContent = "🙈";
+            } else {
+                passwordInput.type = "password";
+                icon.textContent = "👁️";
+            }
+        }
+    </script>
 </body>
 
 </html>

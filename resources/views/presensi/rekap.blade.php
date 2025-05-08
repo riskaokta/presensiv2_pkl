@@ -6,7 +6,7 @@
                 <div class="row g-2 align-items-center">
                     <div class="col">
                         <div class="page-pretitle">Mahasiswa</div>
-                        <h2 class="page-title">Laporan Presensi</h2>
+                        <h2 class="page-title">Rekap Presensi</h2>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                         <div class="col-md-6">
                             <div class="card shadow-sm border-light bg-dark text-white p-4">
                                 <div class="card-body">
-                                    <form action="/presensi/cetaklaporan" target="_blank" method="POST">
+                                    <form action="/presensi/cetakrekap" target="_blank" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="bulan" class="form-label">Bulan</label>
@@ -43,15 +43,6 @@
                                                         {{ $tahun }}
                                                     </option>
                                                 @endfor
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="npm" class="form-label">Nama Mahasiswa</label>
-                                            <select name="npm" id="npm" class="form-select w-100">
-                                                <option value="">Pilih Mahasiswa</option>
-                                                @foreach ($mahasiswa as $d)
-                                                    <option value="{{ $d->npm }}">{{ $d->nama_mhs }}</option>
-                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="row mt-4">

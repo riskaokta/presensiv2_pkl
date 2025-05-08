@@ -2,6 +2,30 @@
 <html lang="en">
 
 <head>
+
+    <style>
+        .main-sidebar .nav-sidebar .nav-link {
+            font-size: 15px;
+            /* Ukuran teks */
+            padding: 10px 20px;
+            /* Jarak dalam elemen */
+            display: flex;
+            align-items: center;
+        }
+
+        .main-sidebar .nav-sidebar .nav-icon {
+            margin-right: 10px;
+            /* Jarak ikon ke teks */
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-sidebar .nav-sidebar .nav-link p {
+            margin: 0;
+            /* Biar teks-nya sejajar vertikal */
+        }
+    </style>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Presensi</title>
@@ -21,7 +45,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
             </ul>
-            <form class="form-inline ml-auto">
+            <!-- <form class="form-inline ml-auto">
                 <div class="input-group input-group-sm">
                     <input class="form-control form-control-navbar" type="search" placeholder="Search"
                         aria-label="Search">
@@ -31,8 +55,8 @@
                         </button>
                     </div>
                 </div>
-            </form>
-            <ul class="navbar-nav ml-3">
+            </form> -->
+            <!-- <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="fas fa-user"></i> Admin
@@ -41,7 +65,23 @@
                         <a href="#" class="dropdown-item">Logout</a>
                     </div>
                 </li>
+            </ul> -->
+
+            <ul class="navbar-nav ml-auto"> <!-- Perubahan di sini -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fas fa-user"></i> Admin
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <!-- Form Logout -->
+                        <form action="{{ route('logoutadmin') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item">Logout</button>
+                        </form>
+                    </div>
+                </li>
             </ul>
+
         </nav>
 
         @yield('content')
@@ -53,10 +93,26 @@
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon fas fa-home"></i>
+                        <!-- <li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon fas fa-home"></i>
                                 <p>Dashboard</p>
-                            </a></li>
-                        <li class="nav-item has-treeview">
+                            </a></li> -->
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('dashboardadmin') ? 'active' : '' }}"
+                                href="/dashboardadmin">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+
+                        <!-- <li class="nav-item"><a class="nav-link" href="/mahasiswa"><i class="nav-icon fas fa-user"></i>
+                                <p>Daftar Mahasiswa</p>
+                            </a></li> -->
+                        <a class="nav-link {{ Request::is('mahasiswa') ? 'active' : '' }}" href="/mahasiswa">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Daftar Mahasiswa</p>
+                        </a>
+
+                        <!-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>Data Master<i class="right fas fa-angle-left"></i></p>
@@ -77,9 +133,9 @@
                         <li class="nav-item"><a class="nav-link" href="/presensi/monitoring"><i
                                     class="nav-icon fas fa-desktop"></i>
                                 <p>Monitoring Presensi</p>
-                            </a></li>
+                            </a></li> -->
 
-                        <li class="nav-item has-treeview">
+                        <!-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -102,11 +158,40 @@
                                             class="far fa-circle nav-icon"></i>
                                         <p>Presensi</p>
                                     </a></li>
-                                <li class="nav-item"><a class="nav-link" href="#"><i class="far fa-circle nav-icon"></i>
+                                <li class="nav-item"><a class="nav-link" href="/presensi/rekap"><i
+                                            class="far fa-circle nav-icon"></i>
                                         <p>Rekap Presensi</p>
                                     </a></li>
                             </ul>
+                        </li> -->
+                        <li
+                            class="nav-item has-treeview {{ Request::is('presensi/laporan') || Request::is('presensi/rekap') ? 'menu-open' : '' }}">
+                            <a href="#"
+                                class="nav-link {{ Request::is('presensi/laporan') || Request::is('presensi/rekap') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <p>
+                                    Laporan
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('presensi/laporan') ? 'active' : '' }}"
+                                        href="/presensi/laporan">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Presensi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('presensi/rekap') ? 'active' : '' }}"
+                                        href="/presensi/rekap">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Rekap Presensi</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+
                     </ul>
                 </nav>
             </div>
@@ -197,5 +282,9 @@
 
     @stack('myscript')
 </body>
+<!-- Footer -->
+<footer class="main-footer text-center">
+    <strong>Copyright &copy; 2025 <a href="#">by.Riska Oktafia</a>.</strong>
+</footer>
 
 </html>

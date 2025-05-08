@@ -11,6 +11,7 @@ class Mahasiswa extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public $timestamps = false;
     protected $table = "mahasiswa";
     protected $primaryKey = "npm";
     protected $fillable = [
@@ -19,6 +20,8 @@ class Mahasiswa extends Authenticatable
         'nohp_mhs',
         'prodi',
         'password',
+        'foto',
+        'tempat_pkl'
 
     ];
 

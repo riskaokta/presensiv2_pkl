@@ -5,7 +5,7 @@
 @else
     <div class="table-responsive">
         <table class="table table-bordered table-striped text-center">
-            <thead class="table-primary">
+            <thead class="table-maroon">
                 <tr>
                     <th>Tanggal</th>
                     <th>Jam Masuk</th>
@@ -45,6 +45,8 @@
         </table>
     </div>
 @endif
+
+@push('myscript')
 
 
 <!-- @foreach ($histori as $d) -->

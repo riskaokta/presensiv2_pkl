@@ -13,6 +13,39 @@
         color: white;
 
     }
+
+    /* .presencecontent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    }
+
+.presencedetail {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.presencedetail span {
+    display: block;
+    font-size: 14px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+@media (max-width: 576px) {
+    .presencecontent {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .presencedetail span {
+        font-size: 13px;
+    }
+} */
+
 </style>
 <div class="section" id="user-section">
     <a href="/proseslogout" class="logout"><ion-icon name="exit-outline"></ion-icon></a>
@@ -25,11 +58,13 @@
                         <img src="{{ url($path) }}" alt="avatar" class="imaged w64" style="">
             @else -->
             <!-- <img src="assets/img/sample/avatar/pia.jpg" alt="avatar" class="imaged w64 rounded"> -->
-            <!-- @endif -->
+            @endif
 
             <!-- ini akuteh pusing kenapa gambar gamau tampil hiss -->
-            <img src="{{ asset('storage/uploads/mahasiswa/' . $presensihariini->foto) }}"
+            <img src="{{ asset('storage/uploads/mahasiswa/' . Auth::guard('mahasiswa')->user()->foto) }}"
                 alt="{{ $presensihariini->nama_mhs }}" class="imaged w64 rounded">
+
+                
 
 
         </div>
@@ -46,7 +81,7 @@
             <div class="list-menu">
                 <div class="item-menu text-center">
                     <div class="menu-icon">
-                        <a href="/presensi/izin" style="font-size: 40px;">
+                        <a href="/presensi/izin" class="warning" style="font-size: 40px;" style="">
                             <ion-icon name="calendar-outline"></ion-icon>
                         </a>
                     </div>
@@ -90,10 +125,37 @@
     </div>
 </div>
 <div class="section mt-2" id="presence-section">
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        .presencedetail span {
+            display: block;
+            word-break: break-word;
+            white-space: normal;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .presencetitle {
+            text-align: center;
+        }
+
+        @media (max-width: 576px) {
+            .presencedetail span {
+                font-size: 13px;
+                white-space: normal;
+                line-height: 1.3;
+            }
+        }
+    </style>
     <div class="todaypresence">
         <div class="row">
             <div class="col-6">
-                <div class="card gradasigreen">
+                <div class="card gradasired">
                     <div class="card-body">
                         <div class="presencecontent">
                             <div class="iconpresence">
@@ -130,7 +192,7 @@
 
     @php
         $totalHari = now()->daysInMonth; // Ganti dengan jumlah hari kerja/bulan
-        $hadir = 5; // Ganti dengan data dari database
+        $hadir = 0; // Ganti dengan data dari database
         $izin = 2; // Ganti dengan data dari database
         $sakit = 3; // Ganti dengan data dari database
         $persentaseHadir = ($totalHari > 0) ? ($hadir / $totalHari) * 100 : 0;
@@ -143,7 +205,7 @@
         <div class="row">
             <div class="col-4">
                 <div class="card">
-                    <div class="card-body">
+                    <!-- <div class="card-body">
                         <div class="presencecontent">
                             <div class="iconpresence primary">
                                 <ion-icon name="log-in"></ion-icon>
@@ -154,12 +216,12 @@
                                     ({{ number_format($persentaseHadir, 1) }}%)</span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-4">
                 <div class="card">
-                    <div class="card-body">
+                    <!-- <div class="card-body">
                         <div class="presencecontent">
                             <div class="iconpresence blue">
                                 <ion-icon name="calendar-outline"></ion-icon>
@@ -170,12 +232,12 @@
                                     ({{ number_format($persentaseIzin, 1) }}%)</span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-4">
                 <div class="card">
-                    <div class="card-body">
+                    <!-- <div class="card-body">
                         <div class="presencecontent">
                             <div class="iconpresence warning">
                                 <ion-icon name="sad"></ion-icon>
@@ -186,7 +248,7 @@
                                     ({{ number_format($persentaseSakit, 1) }}%)</span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

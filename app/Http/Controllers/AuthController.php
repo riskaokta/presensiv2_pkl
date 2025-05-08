@@ -19,7 +19,7 @@ class AuthController extends Controller
         // echo password_hash($pass, PASSWORD_BCRYPT);
         // INI ERROR REDIRECT KE DASHBOARD
         // $a = Hash::make($request->password);
-        // echo $jam;
+        // echo $a;
 
         //Validasi input
         $request->validate([

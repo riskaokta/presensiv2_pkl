@@ -1,0 +1,25 @@
+/* custom-style.css */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #4b0000, #5c1a1a, #3a0d0d);
+    color: #f9f4f4;
+}
+
+.logout {
+    position: absolute;
+    color: #f9f4f4;
+    font-size: 30px;
+    text-decoration: none;
+    right: 8px;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #bfa06f33;
+    border-radius: 12px;
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+/* tambahkan CSS lainnya sesuai kebutuhan... */

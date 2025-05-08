@@ -1,7 +1,7 @@
 @extends('layouts.absensi')
 @section('header')
 <!-- App Header -->
-<div class="appHeader bg-primary text-light">
+<div class="appHeader text-light" style="background-color: #4b0000;">
     <div class="left">
         <a href="javascript:;" class="headerButton goBack">
             <ion-icon name="chevron-back-outline"></ion-icon>
@@ -15,7 +15,8 @@
 
 @section('content')
 <div class="container-fluid p-0" style="margin-top: 10px;">
-    <div class="row mx-0">
+    <div class="row mx-0" style="
+    padding-top: 37px;">
         <div class="col px-2">
             @php
                 $messagesuccess = Session::get('success');
@@ -67,8 +68,8 @@
     <!-- FAB Button -->
 <div class="fab-button bottom-right" style="margin-bottom:70px; display: flex; justify-content: center; align-items: center;">
     <a href="/presensi/buatizin" 
-       class="fab btn btn-primary btn-lg rounded-circle shadow d-flex justify-content-center align-items-center" 
-       style="width: 70px; height: 70px; font-size: 48px; position: relative;">
+       class="fab btn rounded-circle shadow d-flex justify-content-center align-items-center" 
+       style="width: 70px;height: 70px;font-size: 48px;position: relative;background-color: #4b0000;">
         <ion-icon name="add-outline" style="font-size: 36px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></ion-icon>
     </a>
 </div>

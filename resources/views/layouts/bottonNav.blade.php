@@ -13,6 +13,8 @@
             <strong>Histori</strong>
         </div>
     </a> -->
+       
+    @if (Route::currentRouteName() === 'dash')
     <a href="/presensi/create" class="item">
         <div class="col">
             <div class="action-button large">
@@ -20,6 +22,8 @@
             </div>
         </div>
     </a>
+    @endif
+    
     <!-- <a href="/presensi/izin" class="item {{ request()->is('presensi/izin') ? 'active' : ''}}">
         <div class="col">
             <ion-icon name="calendar-outline"></ion-icon>

@@ -31,7 +31,9 @@ Route::middleware(['guest:user'])->group(function () {
     Route::post('/prosesloginadmin', [AuthController::class, 'prosesloginadmin']);
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::post('/panel', [App\Http\Controllers\AuthController::class, 'proseslogoutadmin'])->name('logoutadmin');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name("dash");
 Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
 Route::get('/proseslogout', [AuthController::class, 'proseslogout']);
 
@@ -68,3 +70,16 @@ Route::post('/getpresensi', [PresensiController::class, 'getpresensi']);
 Route::post('/tampilkanpeta', [PresensiController::class, 'tampilkanpeta']);
 Route::get('/presensi/laporan', [PresensiController::class, 'laporan']);
 Route::post('/presensi/cetaklaporan', [PresensiController::class, 'cetaklaporan']);
+Route::get('/presensi/rekap', [PresensiController::class, 'rekap']);
+Route::post('/presensi/cetakrekap', [PresensiController::class, 'cetakrekap']);
+
+//excel
+Route::post('/mahasiswa/import', [MahasiswaController::class, 'importExcel'])->name('mahasiswa.import');
+
+//search
+Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
+
+Route::resource('mahasiswa', MahasiswaController::class);
+
+Route::post('/mahasiswa/edit', [MahasiswaController::class, 'edit']);
+
