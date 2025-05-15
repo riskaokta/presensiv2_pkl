@@ -6,6 +6,7 @@
                 <div class="row g-2 align-items-center">
                     <div class="col">
                         <div class="page-pretitle">Mahasiswa</div>
+                        <!-- Per mahasiswa -->
                         <h2 class="page-title">Laporan Presensi</h2>
                     </div>
                 </div>
@@ -56,16 +57,33 @@
                                         </div>
                                         <div class="row mt-4">
                                             <div class="col-6 pe-1">
-                                                <button type="submit"
+                                                <button type="button" id="btnCetak"
                                                     class="btn btn-primary w-100 d-flex align-items-center justify-content-center">
                                                     <i class="fas fa-print me-2"></i> Cetak
                                                 </button>
                                             </div>
                                             <div class="col-6 ps-1">
-                                                <button type="button"
+                                                <!-- <button type="button"
+                                                                    class="btn btn-success w-100 d-flex align-items-center justify-content-center">
+                                                                    <i class="fas fa-file-excel me-2"></i> Export to Excel
+                                                                </button> -->
+                                                <!-- <button type="submit" name="exportexcel" formaction="{{ route('presensi.export') }}"
+                                                            formmethod="POST"
+                                                            class="btn btn-success w-100 d-flex align-items-center justify-content-center">
+                                                            @csrf
+                                                            <i class="fas fa-file-excel me-2"></i> Export to Excel
+                                                        </button> -->
+                                                <!-- <button type="button" name="exportexcel" id="btnExport"
+                                                        class="btn btn-success w-100 d-flex align-items-center justify-content-center">
+                                                        @csrf
+                                                        <i class="fas fa-file-excel me-2"></i> Export to Excel
+                                                    </button> -->
+                                                <button type="submit" name="exportexcel"
                                                     class="btn btn-success w-100 d-flex align-items-center justify-content-center">
+                                                    @csrf
                                                     <i class="fas fa-file-excel me-2"></i> Export to Excel
                                                 </button>
+
                                             </div>
                                         </div>
 
@@ -79,3 +97,67 @@
         </div>
     </div>
 @endsection
+
+<!-- SweetAlert CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const btnCetak = document.getElementById('btnCetak');
+        const btnExport = document.getElementById('btnExport');
+        const npmSelect = document.getElementById('npm');
+
+        btnCetak.addEventListener('click', function (e) {
+            const npm = document.getElementById('npm').value;
+            if (npm === "") {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Nama Mahasiswa Belum Dipilih',
+                    text: 'Silakan pilih nama mahasiswa terlebih dahulu.'
+                });
+                return;
+            }
+            form.submit();
+        });
+    });
+</script>
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const btnCetak = document.getElementById('btnCetak');
+        const btnExport = document.getElementById('btnExport');
+        const npmSelect = document.getElementById('npm');
+
+        function validateAndSubmit(actionUrl = null) {
+            const npm = npmSelect.value;
+            if (npm === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Nama Mahasiswa Belum Dipilih',
+                    text: 'Silakan pilih nama mahasiswa terlebih dahulu.'
+                });
+                return;
+            }
+
+            if (actionUrl) {
+                form.setAttribute('action', actionUrl);
+            }
+
+            form.submit();
+        }
+
+        btnCetak.addEventListener('click', function () {
+            // default action /presensi/cetaklaporan
+            form.setAttribute('target', '_blank');
+            validateAndSubmit();
+        });
+
+        btnExport.addEventListener('click', function () {
+            // ganti action kalau perlu, contoh: /presensi/export
+            form.setAttribute('target', '_blank');
+            validateAndSubmit('{{ route("presensi.export") }}');
+        });
+    });
+</script> -->

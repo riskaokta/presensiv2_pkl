@@ -79,14 +79,7 @@
       </tr>
     </table>
     <table class="tabeldatamahasiswa">
-      <!-- <tr>
-        <td rowspan="5">
-            @php
-            $path = Storage::url('uploads/mahasiswa/'.$mahasiswa->foto);
-            @endphp
-            <img src="{{ url($path) }}" alt="">
-        </td>
-      </tr> -->
+      
       <tr>
         <td>Nama Mahasiswa</td>
         <td>:</td>

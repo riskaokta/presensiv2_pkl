@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-body">
+                                <class class="card-body">
                                     <div class="row">
                                         <div class="col-12">
                                             @if (Session::get('success'))
@@ -128,11 +128,10 @@
                                                         <div class="form-group">
                                                             <select name="prodi" id="prodi" class="form-control">
                                                                 <option value="">Program Studi</option>
-                                                                @foreach ($prodi as $d)
-                                                                    <option {{ Request('prodi') == $d->prodi ? 'selected' : ''}}
-                                                                        value="{{ $d->prodi }}">{{ $d->prodi }}</option>
-
+                                                                @foreach ($prodi as $p)
+                                                                    <option value="{{ $p }}">{{ $p }}</option>
                                                                 @endforeach
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -173,51 +172,64 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($mahasiswa as $d)
-                                                                                                            @php
-                                                                                                                $path = Storage::url('uploads/mahasiswa/' . $d->foto)
-                                                                                                            @endphp
-                                                                                                            <tr>
-                                                                                                                <td>{{ $loop->iteration + $mahasiswa->firstItem() - 1 }}</td>
-                                                                                                                <td>{{ $d->npm }}</td>
-                                                                                                                <td>{{ $d->nama_mhs }}</td>
-                                                                                                                <td>{{ $d->prodi }}</td>
-                                                                                                                <td>{{ $d->nohp_mhs }}</td>
-                                                                                                                <!-- foto belum muncul -->
-                                                                                                                <td>
-                                                                                                                    @if (empty($d->foto))
-                                                                                                                        <img src="{{ asset('assets/img/nopoto.png') }}"
-                                                                                                                            class="avatar" alt="" width="50" height="50">
-                                                                                                                    @else
-                                                                                                                        <img src="{{ url($path) }}" class="avatar" alt="" width="50"
-                                                                                                                            height="50">
-                                                                                                                    @endif
-                                                                                                                </td>
-                                                                                                                <td>{{ $d->tempat_pkl }}</td>
-                                                                                                                <td>
-                                                                                                                    <!-- Tombol Edit dan Hapus dalam baris yang sama -->
-                                                                                                                    <div class="d-flex justify-content-start">
-                                                                                                                        <!-- Tombol Edit dengan Icon -->
-                                                                                                                        <a href="#" class="btn btn-sm btn-primary edit me-2"
-                                                                                                                            data-npm="{{ $d->npm }}" data-nama="{{ $d->nama_mhs }}"
-                                                                                                                            data-prodi="{{ $d->prodi }}" data-nohp="{{ $d->nohp_mhs }}"
-                                                                                                                            data-tempat="{{ $d->tempat_pkl }}">
-                                                                                                                            <i class="fas fa-edit"></i> Edit
-                                                                                                                        </a>
+                                                            @php
+                                                                $path = Storage::url('uploads/mahasiswa/' . $d->foto)
+                                                            @endphp
+                                                            <tr>
+                                                                <td>{{ $loop->iteration + $mahasiswa->firstItem() - 1 }}</td>
+                                                                <td>{{ $d->npm }}</td>
+                                                                <td>{{ $d->nama_mhs }}</td>
+                                                                <td>{{ $d->prodi }}</td>
+                                                                <td>{{ $d->nohp_mhs }}</td>
+                                                                <!-- foto belum muncul -->
+                                                                <td>
+                                                                    @if (empty($d->foto))
+                                                                        <img src="{{ asset('assets/img/nopoto.png') }}"
+                                                                            class="avatar" alt="" width="50" height="50">
+                                                                    @else
+                                                                        <img src="{{ url($path) }}" class="avatar" alt="" width="50"
+                                                                            height="50">
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $d->tempat_pkl }}</td>
+                                                                <td>
+                                                                    <!-- Tombol Edit dan Hapus dalam baris yang sama -->
+                                                                    <div class="d-flex justify-content-start">
+                                                                        <!-- Tombol Edit dengan Icon -->
+                                                                        <a href="#" class="btn btn-sm btn-primary edit me-2"
+                                                                            data-npm="{{ $d->npm }}"
+                                                                            data-nama="{{ $d->nama_mhs }}"
+                                                                            data-prodi="{{ $d->prodi }}"
+                                                                            data-nohp="{{ $d->nohp_mhs }}"
+                                                                            data-tempat="{{ $d->tempat_pkl }}">
+                                                                            <i class="fas fa-edit"></i> Edit
+                                                                        </a>
 
-                                                                                                                        <!-- Tombol Hapus dengan Icon -->
-                                                                                                                        <form action="{{ route('mahasiswa.destroy', $d->npm) }}" method="POST" class="d-inline"
-                                                                                                                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                                                                                                            @csrf
-                                                                                                                            @method('DELETE')
-                                                                                                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                                                                                                <i class="fas fa-trash-alt"></i> Hapus
-                                                                                                                            </button>
-                                                                                                                        </form>
-                                                                                                                    </div>
-                                                                                                                </td>
+                                                                        <!-- Tombol Hapus dengan Icon -->
+                                                                        <!-- <form action="{{ route('mahasiswa.destroy', $d->npm) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                                                                                @csrf
+                                                                                                @method('DELETE')
+                                                                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                                                                    <i class="fas fa-trash-alt"></i> Hapus
+                                                                                                </button>
+                                                                                                </form> -->
+                                                                        <form id="form-delete-{{ $d->npm }}"
+                                                                            action="{{ route('mahasiswa.destroy', $d->npm) }}"
+                                                                            method="POST" class="d-inline delete-form">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-danger btn-delete"
+                                                                                data-npm="{{ $d->npm }}">
+                                                                                <i class="fas fa-trash-alt"></i> Hapus
+                                                                            </button>
+                                                                        </form>
+
+                                                                    </div>
+                                                                </td>
 
 
-                                                                                                            </tr>
+                                                            </tr>
                                                         @endforeach
                                                     </tbody>
                                                 </table>
@@ -226,18 +238,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
+                                </class>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    <div class="modal modal-blur fade show" id="modal-inputmahasiswa" tabindex="-1" role="dialog" aria-modal="true">
+    <!-- Bagian Tambah Data -->
+    <div class="modal modal-blur fade" id="modal-inputmahasiswa" tabindex="-1" role="dialog" aria-modal="true">
         <div class="modal-dialog modal-1 modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -252,12 +262,12 @@
                             <div class="col-12">
                                 <div class="input-icon mb-3">
                                     <!-- <span class="input-icon-addon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="icon icon-1">
-                                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                                        </svg>
-                                        </span> -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="icon icon-1">
+                                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                                    </svg>
+                                                    </span> -->
                                     <input type="text" value="" class="form-control" name="npm" id="npm" placeholder="NPM">
                                 </div>
                             </div>
@@ -279,9 +289,10 @@
                                 <select name="prodi" id="prodi" class="form-control">
                                     <option value="">Program Studi</option>
                                     @foreach ($prodi as $d)
-                                        <option {{ Request('prodi') == $d->prodi ? 'selected' : ''}} value="{{ $d->prodi }}">
-                                            {{ $d->prodi }}
+                                        <option {{ Request('prodi') == $d ? 'selected' : ''}} value="{{ $d }}">
+                                            {{ $d }}
                                         </option>
+
                                     @endforeach
                                 </select>
                             </div>
@@ -349,8 +360,15 @@
             });
 
             // Ketika tombol edit diklik
-            $(".edit").click(function () {
-                var npm = $(this).attr('npm');
+            // $(".edit").click(function () {
+            //     var npm = $(this).data('npm');
+            $(document).on('click', '.edit', function (e) {
+                e.preventDefault(); // <== ini penting agar tidak mengubah URL
+
+                var npm = $(this).data('npm');
+
+                // Tampilkan modal
+                $('#modal-editmahasiswa').modal('show');
                 // alert(npm);
                 $.ajax({
                     type: 'POST',
@@ -363,7 +381,7 @@
                     success: function (respond) {
                         $("#loadeditform").html(respond);
                     }
-                        error: function () {
+                                    error: function () {
                         Swal.fire({
                             title: 'Error!',
                             text: 'Gagal memuat data untuk edit',
@@ -372,7 +390,7 @@
                         });
                     }
                 });
-                
+
                 $("#modal-editmahasiswa").modal("show"); //modalnya masih blm di tambah
             });
 

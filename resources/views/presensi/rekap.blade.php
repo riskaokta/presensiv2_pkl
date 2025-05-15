@@ -6,6 +6,7 @@
                 <div class="row g-2 align-items-center">
                     <div class="col">
                         <div class="page-pretitle">Mahasiswa</div>
+                        <!-- seluruh mahasiswa -->
                         <h2 class="page-title">Rekap Presensi</h2>
                     </div>
                 </div>
@@ -53,7 +54,7 @@
                                                 </button>
                                             </div>
                                             <div class="col-6 ps-1">
-                                                <button type="button"
+                                                <button type="submit" name="exportexcel"
                                                     class="btn btn-success w-100 d-flex align-items-center justify-content-center">
                                                     <i class="fas fa-file-excel me-2"></i> Export to Excel
                                                 </button>

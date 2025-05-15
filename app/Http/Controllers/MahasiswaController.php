@@ -18,9 +18,10 @@ class MahasiswaController extends Controller
         // $mahasiswa = DB::table('mahasiswa')->orderBy('nama_mhs')
         //     ->paginate(2);
         $query->orderBy('nama_mhs');
-        $mahasiswa = $query->paginate(5
-    
-    );
+        $mahasiswa = $query->paginate(
+            5
+
+        );
         if (!empty($request->nama_mhs)) {
             $query->where('nama_mhs', 'like', '%' . $request->nama_mhs . '%'); //belum jalan search
         }
@@ -29,7 +30,9 @@ class MahasiswaController extends Controller
             $query->where('prodi', $request->prodi);
         }
 
-        $prodi = DB::table('mahasiswa')->get();
+        $prodi = DB::table('prodis')->pluck('prodi'); // hasil: ['Informatika', 'Sistem Informasi']
+
+
 
         return view('mahasiswa.index', compact('mahasiswa', 'prodi'));
     }
@@ -127,6 +130,20 @@ class MahasiswaController extends Controller
         }
         return response()->json(['error' => 'Mahasiswa tidak ditemukan'], 404);
     }
+
+    public function destroy($npm)
+    {
+        $mahasiswa = Mahasiswa::where('npm', $npm)->first();
+
+        if (!$mahasiswa) {
+            return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
+        }
+
+        $mahasiswa->delete();
+
+        return redirect()->back()->with('success', 'Data mahasiswa berhasil dihapus.');
+    }
+
 
 
 }

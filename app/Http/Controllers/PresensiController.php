@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Redirect;
+use App\Exports\PresensiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PresensiController extends Controller
 {
@@ -242,10 +244,11 @@ class PresensiController extends Controller
         {
                 $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
                 $mahasiswa = DB::table('mahasiswa')->orderBy('nama_mhs')->get();
-                return view('presensi.laporan', compact('namabulan','mahasiswa'));
+                return view('presensi.laporan', compact('namabulan', 'mahasiswa'));
         }
 
-        public function cetaklaporan(Request $request){
+        public function cetaklaporan(Request $request)
+        {
                 $npm = $request->npm;
                 $bulan = $request->bulan;
                 $tahun = $request->tahun;
@@ -253,11 +256,19 @@ class PresensiController extends Controller
                 $mahasiswa = DB::table('mahasiswa')->where('npm', $npm)->first();
 
                 $presensi = DB::table('presensi')
-                ->where('npm', $npm)
-                ->whereRaw('MONTH(tgl_presensi)="' . $bulan .'"')
-                ->whereRaw('YEAR(tgl_presensi)="' . $tahun .'"')
-                ->get();
-                return view('presensi.cetaklaporan', compact('bulan','tahun','namabulan','mahasiswa','presensi'));
+                        ->where('npm', $npm)
+                        ->whereRaw('MONTH(tgl_presensi)="' . $bulan . '"')
+                        ->whereRaw('YEAR(tgl_presensi)="' . $tahun . '"')
+                        ->get();
+
+                if (isset($_POST['exportexcel'])) {
+                        $time = date("d-M-Y H:i:s");
+                        // Fungsi header dengan mengirimkan raw data excel
+                        header("Content-type: application/vnd-ms-excel");
+                        // Mendefinisikan nama file ekspor "hasil-export.xls"
+                        header("Content-Disposition: attachment; filename=Laporan Presensi Mahasiswa $time.xls");
+                }
+                return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'presensi'));
         }
 
         public function rekap()
@@ -309,6 +320,16 @@ class PresensiController extends Controller
                         ->whereRaw('YEAR(tgl_presensi)="' . $tahun . '"')
                         ->groupByRaw('presensi.npm,nama_mhs')
                         ->get();
+
+
+                if (isset($_POST['exportexcel'])) {
+                        $time = date("d-M-Y H:i:s");
+                        // Fungsi header dengan mengirimkan raw data excel
+                        header("Content-type: application/vnd-ms-excel");
+                        // Mendefinisikan nama file ekspor "hasil-export.xls"
+                        header("Content-Disposition: attachment; filename=Rekap Presensi Mahasiswa $time.xls");
+                }
+
                 return view('presensi.cetakrekap', compact('bulan', 'tahun', 'namabulan', 'rekap'));
         }
 
@@ -327,6 +348,34 @@ class PresensiController extends Controller
                         ->get();
                 return view('presensi.cetakhistorimhs', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'presensi'));
         }
+
+        public function ajaxEdit(Request $request)
+        {
+                $npm = $request->npm;
+                $mahasiswa = Mahasiswa::where('npm', $npm)->first();
+
+                if ($mahasiswa) {
+                        return view('mahasiswa.edit-form', compact('mahasiswa'));
+                } else {
+                        return response('Data tidak ditemukan', 404);
+                }
+        }
+
+        // public function export()
+        // {
+        //         return Excel::download(new PresensiExport, 'data_presensi.xlsx');
+        // }
+
+        public function export(Request $request)
+        {
+                $bulan = $request->bulan;
+                $tahun = $request->tahun;
+                $npm = $request->npm;
+
+                return Excel::download(new PresensiExport($bulan, $tahun, $npm), 'data_presensi.xlsx');
+        }
+
+
 }
 
 

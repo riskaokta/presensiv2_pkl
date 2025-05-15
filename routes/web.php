@@ -80,6 +80,16 @@ Route::post('/mahasiswa/import', [MahasiswaController::class, 'importExcel'])->n
 Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
 
 Route::resource('mahasiswa', MahasiswaController::class);
+Route::delete('/mahasiswa/{npm}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
 
-Route::post('/mahasiswa/edit', [MahasiswaController::class, 'edit']);
+//aksi edit
+Route::post('/mahasiswa/edit', [MahasiswaController::class, 'ajaxEdit']);
+Route::put('/mahasiswa/{npm}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
+
+//export to excel
+// Route::get('/export-presensi', [PresensiController::class, 'export']);
+Route::post('/presensi/export', [PresensiController::class, 'export'])->name('presensi.export');
+
+
+
 

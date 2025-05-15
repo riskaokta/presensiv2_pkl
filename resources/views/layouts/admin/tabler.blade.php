@@ -107,6 +107,20 @@
                         <!-- <li class="nav-item"><a class="nav-link" href="/mahasiswa"><i class="nav-icon fas fa-user"></i>
                                 <p>Daftar Mahasiswa</p>
                             </a></li> -->
+
+                        <!-- Tambahan menu -->
+                        <a class="nav-link" href="">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Setting Akun</p>
+                        </a>
+                          <a class="nav-link" href="">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Periode PKL</p>
+                        </a>
+                          <a class="nav-link" href="">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Maps-Foto Mahasiswa</p>
+                        </a>
                         <a class="nav-link {{ Request::is('mahasiswa') ? 'active' : '' }}" href="/mahasiswa">
                             <i class="nav-icon fas fa-user"></i>
                             <p>Daftar Mahasiswa</p>
@@ -279,9 +293,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     @stack('myscript')
 </body>
+
+<!-- Aksi Delete -->
+<script>
+    $(document).on('click', '.btn-delete', function (e) {
+        e.preventDefault();
+        var npm = $(this).data('npm');
+
+        Swal.fire({
+            title: 'Yakin ingin menghapus?',
+            text: "Data mahasiswa dengan NPM " + npm + " akan dihapus permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#form-delete-' + npm).submit();
+            }
+        });
+    });
+</script>
+
 <!-- Footer -->
 <footer class="main-footer text-center">
     <strong>Copyright &copy; 2025 <a href="#">by.Riska Oktafia</a>.</strong>
